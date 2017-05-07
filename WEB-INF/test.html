@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div class="pagination">
+    <ul>
+        <s:if test='#request.questions!=null&&#request.totalPages!="1"'>
+            <%
+            String tp=request.getAttribute("totalPages").toString(),
+            tc=request.getAttribute("totalCount").toString(),
+            cp=request.getAttribute("currentPage").toString();
+            int totalPages=Integer.parseInt(tp),totalCount=Integer.parseInt(tc),
+            currentPage=Integer.parseInt(cp);
+            if(currentPage==1){
+            %>
+            <li>
+                <a href="<s:url action='displayT'>
+							        <s:param name="classify.classId">${classId}</s:param>
+                <s:param name="currentPage">${currentPage}</s:param>
+                <s:param name="tquestion.title">Null</s:param>
+                </s:url>">上一页</a>
+            </li>
+            <%}
+            else{
+            pageContext.setAttribute("forward",currentPage-1,PageContext.PAGE_SCOPE);
+            %>
+            <li>
+                <a href="<s:url action='displayT'>
+									<s:param name="classify.classId">${classId}</s:param>
+                <s:param name="currentPage">${forward}</s:param>
+                <s:param name="tquestion.title">Null</s:param>
+                </s:url>">上一页</a>
+            </li>
+            <%}
+            for(int i=1;i<=totalPages;i++){
+            pageContext.setAttribute("i",i,PageContext.PAGE_SCOPE);
+            if(i==currentPage){
+            %>
+            <li class="active">
+                <a href="<s:url action='displayT'>
+										  <s:param name="classify.classId">${classId}</s:param>
+                <s:param name="currentPage">${i}</s:param>
+                <s:param name="tquestion.title">Null</s:param>
+                </s:url>">${i}</a>
+            </li>
+            <%  }
+            else{
+            %>
+            <li>
+                <a href="<s:url action='displayT'>
+											<s:param name="classify.classId">${classId}</s:param>
+                <s:param name="currentPage">${i}</s:param>
+                <s:param name="tquestion.title">Null</s:param>
+                </s:url>">${i}</a>
+            </li>
+            <%  }
+            %>
+            <% }
+            if(currentPage==totalPages){
+            %>
+            <li>
+                <a href="<s:url action='displayT'>
+									<s:param name="classify.classId">${classId}</s:param>
+                <s:param name="currentPage">${currentPage}</s:param>
+                <s:param name="tquestion.title">Null</s:param>
+                </s:url>">下一页</a>
+            </li>
+            <%}
+            else{
+            pageContext.setAttribute("next",currentPage+1,PageContext.PAGE_SCOPE);
+            %>
+            <li>
+                <a href="<s:url action='displayT'>
+									<s:param name="classify.classId">${classId}</s:param>
+                <s:param name="currentPage">${next}</s:param>
+                <s:param name="tquestion.title">Null</s:param>
+                </s:url>">下一页</a>
+            </li>
+            <%}%>
+        </s:if>
+    </ul>
+</div>
+
+</body>
+</html>
