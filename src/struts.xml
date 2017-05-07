@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<constant name="struts.devMode" value="true" />
+<package name="bcnf" extends="struts-default">
+
+<action name="login" class="com.action.LoginAction" method="login">
+<result name="success" type="redirect">index.jsp?from=${from}</result>
+<result name="error">login.jsp</result>
+</action>
+<action name="register" class="com.action.RegisterAction" method="register">
+<result name="success" type="redirect">index.jsp?from=${from}</result>
+<result name="error">login.jsp</result>
+</action>
+<action name="logout" class="com.action.LoginAction" method="logout">
+<result name="success" type="redirect">index.jsp?from=${from}</result>
+</action>
+
+<action name="display" class="com.action.CollegeAction" method="display">
+<result name="success">mainOfQA.jsp</result>
+</action>
+<action name="showRank" class="com.action.CollegeAction" method="showRank">
+<result name="success">colrank.jsp</result>
+</action>
+<action name="showUserInfo" class="com.action.UserInfoAction" method="showUserInfo">
+<result name="success">userInfo.jsp</result>
+</action>
+<action name="modUserInfo" class="com.action.UserInfoAction" method="modUserInfo">
+<result name="success" type="chain">
+<param name="actionName">showUserInfo</param>
+</result>
+</action>
+<action name="modUserPassword" class="com.action.UserInfoAction" method="modUserPassword">
+<result name="success" type="chain">
+<param name="actionName">showUserInfo</param>
+</result>
+</action>
+<action name="modUserVerifiedInfo" class="com.action.UserInfoAction" method="modUserVerifiedInfo">
+<result name="success" type="chain">
+<param name="actionName">showUserInfo</param>
+</result>
+</action>
+<action name="addPosts" class="com.action.CollegeAction" method="addPosts">
+<result name="success" type="redirectAction">
+<param name="actionName">showQInfo</param>
+<param name="college.cName">${college.cName}</param>
+<param name="question.qId">${question.qId}</param>
+<param name="currentPage">${currentPage}</param>
+</result>
+</action>
+
+<action name="showQInfo" class="com.action.QuestionAction" method="showQInfo">
+<result name="success">infoOfPost.jsp</result>
+</action>
+<action name="addCollege" class="com.action.AdminAction" method="addCollege">
+<result name="success">admin.jsp</result>
+</action>
+<action name="addReply" class="com.action.AnswerAction" method="addReply">
+<result name="success" type="redirectAction">
+<param name="actionName">showQInfo</param>
+<param name="college.cName">${college.cName}</param>
+<param name="question.qId">${question.qId}</param>
+<param name="currentPage">${currentPage}</param>
+</result>
+</action>
+<action name="delPosts" class="com.action.QuestionAction" method="delPosts">
+<result name="success" type="redirectAction">
+<param name="actionName">display</param>
+<param name="college.cName">${college.cName}</param>
+<param name="currentPage">${currentPage}</param>
+<param name="question.title">${question.title}</param>
+</result>
+</action>
+
+<action name="delReply" class="com.action.AnswerAction" method="delReply">
+<result name="success" type="redirectAction">
+<param name="actionName">showQInfo</param>
+<param name="question.qId">${question.qId}</param>
+<param name="college.cName">${college.cName}</param>
+<param name="currentPage">${currentPage}</param>
+</result>
+</action>
+<action name="praise" class="com.action.AnswerAction" method="praise">
+<result name="success" type="redirectAction">
+<param name="actionName">showQInfo</param>
+<param name="question.qId">${question.qId}</param>
+<param name="college.cName">${college.cName}</param>
+<param name="currentPage">${currentPage}</param>
+</result>
+</action>
+
+<action name="displayT" class="com.action.TQuestionAction" method="displayT">
+<result name="success">mainOfTQA.jsp</result>
+</action>
+
+<action name="addTPosts" class="com.action.TQuestionAction" method="addTPosts">
+<result name="success" type="redirectAction">
+<param name="actionName">showTQInfo</param>
+<param name="classify.classId">${classify.classId}</param>
+<param name="tquestion.qId">${tquestion.qId}</param>
+<param name="currentPage">${currentPage}</param>
+</result>
+</action>
+
+<action name="showTQInfo" class="com.action.TQuestionAction" method="showTQInfo">
+<result name="success">infoOfTPost.jsp</result>
+</action>
+
+<action name="addTReply" class="com.action.TAnswerAction" method="addTReply">
+<result name="success" type="redirectAction">
+<param name="actionName">showTQInfo</param>
+<param name="classify.classId">${classify.classId}</param>
+<param name="tquestion.qId">${tquestion.qId}</param>
+<param name="currentPage">${currentPage}</param>
+</result>
+</action>
+
+<action name="delTPosts" class="com.action.TQuestionAction" method="delTPosts">
+<result name="success" type="redirectAction">
+<param name="actionName">displayT</param>
+<param name="classify.classId">${classify.classId}</param>
+<param name="currentPage">${currentPage}</param>
+<param name="tquestion.title">${tquestion.title}</param>
+</result>
+</action>
+
+<action name="delTReply" class="com.action.TAnswerAction" method="delTReply">
+<result name="success" type="redirectAction">
+<param name="actionName">showTQInfo</param>
+<param name="tquestion.qId">${tquestion.qId}</param>
+<param name="classify.classId">${classify.classId}</param>
+<param name="currentPage">${currentPage}</param>
+</result>
+</action>
+
+<action name="praiseT" class="com.action.TAnswerAction" method="praiseT">
+<result name="success" type="redirectAction">
+<param name="actionName">showTQInfo</param>
+<param name="tquestion.qId">${tquestion.qId}</param>
+<param name="classify.classId">${classify.classId}</param>
+<param name="currentPage">${currentPage}</param>
+</result>
+</action>
+<action name="showClassMajor" class="com.action.MajorAction" method="showClassMajor">
+<result name="success">major.jsp</result>
+</action>
+
+<action name="displayMajorInfo" class="com.action.MajorAction" method="displayMajorInfo">
+<result name="success" type="chain">showClassMajor
+</result>
+</action>
+
+<action name="deleteUser" class="com.action.AdminAction" method="deleteUser">
+<result name="success">admin.jsp</result>
+</action>
+
+<action name="displayGalRank" class="com.action.MajorAction" method="displayGalRank">
+<result name="success" type="chain">showClassMajor
+</result>
+</action>
+
+<action name="displayAuditedUser" class="com.action.AdminAction" method="displayAuditedUser">
+<result name="success">admin.jsp</result>
+</action>
+
+<action name="auditUser" class="com.action.AdminAction" method="auditUser">
+<result name="success" type="chain">
+<param name="actionName">displayAuditedUser</param>
+</result>
+</action>
+
+
+<action name="showQuestion" class="com.action.UserInfoAction" method="showQuestion">
+<result name="success" type="chain">
+<param name="actionName">showUserInfo</param>
+</result>
+</action>
+
+</package>
+</struts>
